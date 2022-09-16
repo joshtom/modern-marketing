@@ -13,7 +13,8 @@ body {
   --color-yellow: #ffc634;
   --color-pink: #e271ad;
   --color-dark: #030303;
-  color: var(--color-text);
+  --color-number: #999;
+  color: var(--color-white);
   background-color: var(--color-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -93,6 +94,93 @@ a {
 
 .header__wrapper--HB .button-menu:focus-visible svg, .header__wrapper--HB .button-menu:hover svg {
   transform: scale(1.1);
+}
+
+.hero {
+  padding: 2rem 20px;
+}
+
+.hero__title {
+  width: 40%;
+  font-size: 4vw;
+  line-height: 1;
+}
+
+.hero__more {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+  display: grid;
+}
+
+.hero__more--section article {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.hero__more--section .link-and-view {
+  margin-top: 1rem;
+}
+
+.hero__more--section .link-and-view .link__item {
+  width: auto;
+  height: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  position: relative;
+}
+
+.hero__more--section .link-and-view .link__item .link {
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--color-white);
+  position: relative;
+}
+
+.hero__more--section .link-and-view .link__item .link:before, .hero__more--section .link-and-view .link__item .link:after {
+  width: 100%;
+  height: 1px;
+  pointer-events: none;
+  background: currentColor;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.hero__more--section .link-and-view .link__item .link:before {
+  content: "";
+}
+
+.hero__more--section .link-and-view .link__item .link.link--iocaste {
+  padding-top: 2px;
+  padding-bottom: 7px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.hero__more--section .link-and-view .link__item .link__graphic {
+  pointer-events: none;
+  fill: none;
+  stroke: var(--color-white);
+  stroke-width: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hero__more--section .link-and-view .link__item .link__graphic--slide {
+  stroke-width: 4px;
+  transition: transform .7s cubic-bezier(0, .25, .5, 1);
+  top: 1px;
+}
+
+.hero__more--section .link-and-view .link__item .link:hover .link__graphic--slide {
+  stroke: var(--color-green);
+  transform: translate3d(-66.6%, 0, 0);
 }
 
 .splitting .char {
