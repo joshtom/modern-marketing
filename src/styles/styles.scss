@@ -21,9 +21,15 @@ body {
   background-color: var(--color-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: grid;
 }
 a {
   text-decoration: none;
+}
+
+#main-container {
+  height: 100vh;
+  display: grid;
 }
 
 .header {
@@ -97,9 +103,40 @@ a {
   }
 }
 
+// Menu navigation
+.menu-wrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-text);
+  position: fixed;
+  z-index: 100;
+  justify-content: flex-end;
+  padding: 40px;
+  display: none;
+
+  button.button-close {
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2rem;
+    stroke: var(--color-dark);
+    fill: none;
+    cursor: pointer;
+
+    &:focus-visible,
+    &:hover {
+      stroke: var(--color-pink);
+    }
+  }
+}
+
 .hero {
   padding: 2rem 20px;
-
+  &__text__wrapper {
+    overflow: hidden;
+  }
   &__title {
     font-size: 4vw;
     width: 40%;
@@ -110,6 +147,7 @@ a {
     margin-top: 3rem;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+    overflow: hidden;
     &--section {
       article {
         font-size: 16px;
@@ -295,14 +333,24 @@ a {
   }
 }
 
+.overlay {
+  grid-area: 1 / 1 / 2 / 2;
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  //   background-color: red;
+}
+
 .splitting .char {
-  animation: slide-in 0.7s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation: slide-in 0.5s cubic-bezier(0.5, 0, 0.5, 1) both;
   animation-delay: calc(60ms * var(--char-index));
 }
 
 @keyframes slide-in {
   from {
-    transform: translateX(1em) scale(0.5);
+    transform: translateY(0.8em) scale(0.5);
     opacity: 0;
   }
 }
