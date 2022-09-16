@@ -202,8 +202,17 @@ a {
     flex-direction: column;
     justify-content: space-between;
     font-family: "Roboto Condensed", sans-serif;
-    // transition: transform 0.5s ease;
     cursor: pointer;
+
+    &:nth-child(2) {
+      background-color: var(--color-green);
+    }
+    &:nth-child(3) {
+      background-color: var(--color-yellow);
+    }
+    &:nth-child(4) {
+      background-color: var(--color-text);
+    }
 
     span.card-icon {
       font-size: 48px;

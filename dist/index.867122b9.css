@@ -204,6 +204,18 @@ a {
   overflow: hidden;
 }
 
+.marketing-cards .card:nth-child(2) {
+  background-color: var(--color-green);
+}
+
+.marketing-cards .card:nth-child(3) {
+  background-color: var(--color-yellow);
+}
+
+.marketing-cards .card:nth-child(4) {
+  background-color: var(--color-text);
+}
+
 .marketing-cards .card span.card-icon {
   font-size: 48px;
 }
