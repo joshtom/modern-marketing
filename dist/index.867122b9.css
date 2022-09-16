@@ -1,0 +1,198 @@
+*, :before, :after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  --color-dark: #030303;
+  --color-gray: #85858d;
+  --color-white: #fff;
+  --color-text: #fcf0ec;
+  --color-green: #a0cf18;
+  --color-yellow: #ffc634;
+  --color-pink: #e271ad;
+  --color-dark: #030303;
+  color: var(--color-text);
+  background-color: var(--color-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Space Grotesk, sans-serif;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.header {
+  width: 100vw;
+  background: #00000080;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  display: flex;
+}
+
+.header a {
+  color: var(--color-text);
+  transition: transform .5s;
+}
+
+.header__logo {
+  cursor: pointer;
+}
+
+.header__wrapper {
+  align-items: center;
+  gap: 40px;
+  display: flex;
+}
+
+.header__wrapper--LN {
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+.header__wrapper--LN a:first-child:hover, .header__wrapper--LN a:first-child:focus-within {
+  color: var(--color-green);
+}
+
+.header__wrapper--LN a:last-child:hover, .header__wrapper--LN a:last-child:focus-within {
+  color: var(--color-yellow);
+}
+
+.header__wrapper--LN .dot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-text);
+  border-radius: 50%;
+}
+
+.header__wrapper--HB .button-menu {
+  cursor: pointer;
+  width: 54px;
+  height: 54px;
+  border: .7px solid var(--color-text);
+  fill: var(--color-text);
+  background: none;
+  border-radius: 50%;
+  place-items: center;
+  display: grid;
+}
+
+.header__wrapper--HB .button-menu svg {
+  transition: transform .5s;
+}
+
+.header__wrapper--HB .button-menu:focus-visible, .header__wrapper--HB .button-menu:hover {
+  fill: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.header__wrapper--HB .button-menu:focus-visible svg, .header__wrapper--HB .button-menu:hover svg {
+  transform: scale(1.1);
+}
+
+.splitting .char {
+  animation: slide-in .7s cubic-bezier(.5, 0, .5, 1) both;
+  animation-delay: calc(60ms * var(--char-index));
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(1em)scale(.5);
+  }
+}
+
+.splitting .word, .splitting .char {
+  display: inline-block;
+}
+
+.splitting .char {
+  position: relative;
+}
+
+.splitting .char:before, .splitting .char:after {
+  content: attr(data-char);
+  visibility: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.splitting {
+  --word-center: calc((var(--word-total)  - 1) / 2);
+  --char-center: calc((var(--char-total)  - 1) / 2);
+  --line-center: calc((var(--line-total)  - 1) / 2);
+}
+
+.splitting .word {
+  --word-percent: calc(var(--word-index) / var(--word-total));
+  --line-percent: calc(var(--line-index) / var(--line-total));
+}
+
+.splitting .char {
+  --char-percent: calc(var(--char-index) / var(--char-total));
+  --char-offset: calc(var(--char-index)  - var(--char-center));
+  --distance: calc( (var(--char-offset) * var(--char-offset)) / var(--char-center));
+  --distance-sine: calc(var(--char-offset) / var(--char-center));
+  --distance-percent: calc((var(--distance) / var(--char-center)) );
+}
+
+.splitting.cells img {
+  width: 100%;
+  display: block;
+}
+
+@supports ( display: grid ) {
+  .splitting.cells {
+    visibility: hidden;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .splitting .cell-grid {
+    background: inherit;
+    width: 100%;
+    height: 100%;
+    grid-template: repeat( var(--row-total), 1fr ) / repeat( var(--col-total), 1fr );
+    display: grid;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .splitting .cell {
+    background: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .splitting .cell-inner {
+    background: inherit;
+    visibility: visible;
+    width: calc(100% * var(--col-total));
+    height: calc(100% * var(--row-total));
+    left: calc(-100% * var(--col-index));
+    top: calc(-100% * var(--row-index));
+    position: absolute;
+  }
+
+  .splitting .cell {
+    --center-x: calc((var(--col-total)  - 1) / 2);
+    --center-y: calc((var(--row-total)  - 1) / 2);
+    --offset-x: calc(var(--col-index)  - var(--center-x));
+    --offset-y: calc(var(--row-index)  - var(--center-y));
+    --distance-x: calc( (var(--offset-x) * var(--offset-x)) / var(--center-x));
+    --distance-y: calc( (var(--offset-y) * var(--offset-y)) / var(--center-y));
+  }
+}
+
+/*# sourceMappingURL=index.867122b9.css.map */

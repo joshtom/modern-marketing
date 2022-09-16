@@ -1,0 +1,122 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  --color-dark: #030303;
+  --color-gray: #85858d;
+  --color-white: #fff;
+  --color-text: #fcf0ec;
+  --color-green: #a0cf18;
+  --color-yellow: #ffc634;
+  --color-pink: #e271ad;
+  --color-dark: #030303;
+  font-size: 16px;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a {
+  text-decoration: none;
+}
+
+.header {
+  width: 100vw;
+  padding: 20px 25px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    color: var(--color-text);
+    transition: transform 0.5s ease;
+  }
+  &__logo {
+    cursor: pointer;
+  }
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    &--LN {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      a {
+        &:first-child {
+          &:hover,
+          &:focus-within {
+            color: var(--color-green);
+          }
+        }
+        &:last-child {
+          &:hover,
+          &:focus-within {
+            color: var(--color-yellow);
+          }
+        }
+      }
+      .dot {
+        width: 5px;
+        height: 5px;
+        background-color: var(--color-text);
+        border-radius: 50%;
+      }
+    }
+    &--HB {
+      .button-menu {
+        background: none;
+        cursor: pointer;
+        width: 54px;
+        height: 54px;
+        display: grid;
+        place-items: center;
+        border: 0.7px solid var(--color-text);
+        border-radius: 50%;
+        fill: var(--color-text);
+        svg {
+          transition: transform 0.5s ease;
+        }
+        &:focus-visible,
+        &:hover {
+          fill: var(--color-white);
+          border-color: var(--color-white);
+          svg {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+}
+
+// main {
+//   display: grid;
+//   place-items: center;
+//   width: 100vw;
+//   height: 100vh;
+//   p {
+//     color: var(--color-text);
+//     font-weight: bold;
+//     font-size: 24px;
+//   }
+// }
+
+.splitting .char {
+  animation: slide-in 0.7s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(60ms * var(--char-index));
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(1em) scale(0.5);
+    opacity: 0;
+  }
+}
