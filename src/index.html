@@ -18,6 +18,9 @@
     <title>Modern.</title>
   </head>
   <body>
+    <div class="loader">
+      <h1 id="loader-text">Modern Agency.</h1>
+    </div>
     <div id="main-container">
       <nav class="header">
         <div class="header__logo">
@@ -47,36 +50,59 @@
         </div>
       </nav>
       <div class="menu-wrap">
-        <!-- <nav class="menu">
-          <a class="menu__item">
-            <span class="menu__item-tiny">always</span>
-            <span class="menu__item-text">bold</span>
-          </a>
-          <a class="menu__item">
-            <span class="menu__item-text">casual</span>
-            <span class="menu__item-tiny">look</span>
-          </a>
-          <a class="menu__item">
-            <span class="menu__item-tiny">be</span>
-            <span class="menu__item-text">funky</span>
-          </a>
-          <a class="menu__item">
-            <span class="menu__item-text">mad</span>
-            <span class="menu__item-tiny">feelings</span>
-          </a>
-        </nav> -->
         <button class="button-close">
           <svg width="25" height="16" viewBox="0 0 25 16">
             <path d="M2.238 7.079h2.727M2.482 9.496l-.666-2.7" />
             <path d="M23.753 5.403s-1.87 16.88-22.03 1.785" />
           </svg>
         </button>
+        <main class="menu-wrap--main">
+          <aside class="menu-wrap-img">
+            <img src="./assets/img/23.jpg" alt="Home Image" />
+            <img src="./assets/img/13.jpg" alt="Home Image" />
+            <img src="./assets/img/14.jpg" alt="Home Image" />
+          </aside>
+          <nav>
+            <section class="nav">
+              <a href="#" class="nav__link" id="nav-link" data-name="work">
+                <span class="nav__link--text" data-splitting>Work</span>
+                <span class="nav__link--text" data-splitting>.Work</span>
+              </a>
+              <a href="#" class="nav__link" id="nav-link" data-name="studio">
+                <span class="nav__link--text" data-splitting>Studio</span>
+                <span class="nav__link--text" data-splitting>.Studio</span>
+              </a>
+              <a href="#" class="nav__link" id="nav-link" data-name="contact">
+                <span class="nav__link--text" data-splitting>Contact</span>
+                <span class="nav__link--text" data-splitting>.Contact</span>
+              </a>
+            </section>
+            <section class="socials">
+              <ul class="socials__links">
+                <li class="socials__links--horizontal" data-splitting>
+                  <a href="#">BEHANCE</a>
+                </li>
+                <li class="socials__links--horizontal" data-splitting>
+                  <a href="#">DRIBBBLE</a>
+                </li>
+                <li class="socials__links--horizontal" data-splitting>
+                  <a href="#">INSTAGRAM</a>
+                </li>
+                <li class="socials__links--horizontal" data-splitting>
+                  <a href="#">TWITTER</a>
+                </li>
+              </ul>
+            </section>
+          </nav>
+        </main>
+        <footer class="menu-wrap--footer">
+          <p>Play Reel</p>
+          <h3>Let's work together</h3>
+        </footer>
       </div>
       <main class="hero">
         <section class="hero__text__wrapper">
-          <h1 data-splitting class="hero__title">
-            Marketing is an art and we're artists
-          </h1>
+          <h1 class="hero__title">Marketing is an art and we're artists</h1>
         </section>
 
         <section class="hero__more">
