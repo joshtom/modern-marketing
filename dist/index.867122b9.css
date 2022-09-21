@@ -57,7 +57,6 @@ a {
 .header {
   width: 100vw;
   opacity: 0;
-  background: #00000080;
   justify-content: space-between;
   align-items: center;
   padding: 20px 25px;
@@ -358,7 +357,7 @@ a {
 .hero__title {
   width: 40%;
   font-size: 4vw;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .hero__more {
@@ -440,7 +439,7 @@ a {
 }
 
 .marketing-cards {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 2rem 20px;
   display: grid;
@@ -572,6 +571,38 @@ a {
   from {
     opacity: 0;
     transform: translateY(.8em)scale(.5);
+  }
+}
+
+@media screen and (max-width: 53rem) {
+  #main-container {
+    height: auto;
+  }
+
+  .header__wrapper--LN {
+    display: none;
+  }
+
+  .hero__title {
+    width: 90%;
+    font-size: 8vw;
+  }
+
+  .hero__more {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .marketing-cards {
+    overflow-x: scroll;
+    overflow-y: visible;
+    grid-template-columns: repeat(4, 270px) !important;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .hidden-img {
+    display: hidden;
+    position: absolute;
   }
 }
 

@@ -17,6 +17,7 @@
     "splitting": "^1.0.6"
   },
   "dependencies": {
+    "@barba/core": "^2.9.7",
     "@parcel/transformer-sass": "^2.7.0",
     "gsap": "^3.11.1",
     "imagesloaded": "^5.0.0",

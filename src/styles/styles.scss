@@ -53,14 +53,11 @@ a {
 #main-container {
   height: 100vh;
   display: grid;
-  // transform: scale(1.3);
-  // opacity: 0;
 }
 
 .header {
   width: 100vw;
   padding: 20px 25px;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -358,11 +355,7 @@ a {
   &__title {
     font-size: 4vw;
     width: 40%;
-    line-height: 1;
-    // & span.char {
-    //   opacity: 0;
-    //   transform: translateY(200);
-    // }
+    line-height: 1.2;
   }
   &__more {
     display: grid;
@@ -447,7 +440,8 @@ a {
 .marketing-cards {
   padding: 2rem 20px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  // grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 
   .card {
@@ -577,5 +571,37 @@ a {
       transform: translateY(0.8em) scale(0.5);
       opacity: 0;
     }
+  }
+}
+
+// Responsive
+@media screen and (max-width: 53rem) {
+  #main-container {
+    height: auto;
+  }
+  .header__wrapper--LN {
+    display: none;
+  }
+  .hero {
+    &__title {
+      font-size: 8vw;
+      width: 90%;
+    }
+    &__more {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+  .marketing-cards {
+    grid-template-columns: repeat(4, 270px) !important;
+    overflow-x: scroll;
+    overflow-y: visible;
+  }
+}
+
+// Hide Hidden image on mobile
+@media screen and (max-width: 560px) {
+  .hidden-img {
+    display: hidden;
+    position: absolute;
   }
 }
