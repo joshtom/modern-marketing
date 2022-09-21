@@ -42,6 +42,7 @@ preloadImages().then(() => {
 const animateLoaderBanner = () => {
   const result = Splitting({ target: loaderText, by: "chars" });
   const lt = result[0].chars;
+  gsap.set(document.body, { overflow: "hidden" });
   tl.to(
     lt,
     {
@@ -135,6 +136,7 @@ const openMenu = () => {
   if (isAnimating) return;
   isAnimating = true;
 
+  gsap.set(document.body, { overflow: "hidden" });
   gsap
     .timeline({
       onComplete: () => (isAnimating = false),
@@ -204,6 +206,7 @@ const openMenu = () => {
 const closeMenu = () => {
   if (isAnimating) return;
   isAnimating = true;
+  gsap.set(document.body, { overflow: "auto" });
   // Slide Texts
   gsap.timeline().to(
     [menus.navLinks, menus.navSocialLink, menus.footer],

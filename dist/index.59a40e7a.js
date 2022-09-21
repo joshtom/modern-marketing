@@ -581,6 +581,9 @@ const animateLoaderBanner = ()=>{
         by: "chars"
     });
     const lt = result[0].chars;
+    (0, _gsap.gsap).set(document.body, {
+        overflow: "hidden"
+    });
     tl.to(lt, {
         duration: 0.9,
         stagger: 0.05,
@@ -641,6 +644,9 @@ const animateLoaderBanner = ()=>{
 const openMenu = ()=>{
     if (isAnimating) return;
     isAnimating = true;
+    (0, _gsap.gsap).set(document.body, {
+        overflow: "hidden"
+    });
     (0, _gsap.gsap).timeline({
         onComplete: ()=>isAnimating = false
     }).set(overlayPath, {
@@ -709,6 +715,9 @@ const openMenu = ()=>{
 const closeMenu = ()=>{
     if (isAnimating) return;
     isAnimating = true;
+    (0, _gsap.gsap).set(document.body, {
+        overflow: "auto"
+    });
     // Slide Texts
     (0, _gsap.gsap).timeline().to([
         menus.navLinks,
