@@ -3,6 +3,9 @@ import "splitting/dist/splitting.css";
 import "splitting/dist/splitting-cells.css";
 import Splitting from "splitting";
 import { preloadImages } from "./utils";
+import image1 from "../assets/img/23.jpg";
+import image2 from "../assets/img/13.jpg";
+import image3 from "../assets/img/14.jpg";
 
 Splitting();
 
@@ -11,20 +14,29 @@ let tl = gsap.timeline();
 const overlayPath = document.querySelector(".overlay__path");
 const openMenuCtrl = document.querySelector("button.button-menu");
 const closeMenuCtrl = document.querySelector("button.button-close");
-const menuWrap = document.querySelector(".menu-wrap");
+
 const loaderText = document.querySelector("#loader-text");
 const cards = document.querySelectorAll(".card");
+const navImg = document.querySelector(".menu-wrap .hidden-img img");
+const hideImg = document.querySelector(".menu-wrap .hidden-img");
 const hero = {
   heading: document.querySelector(".hero__title"),
   char: document.querySelector("span.char"),
   moresection: document.querySelectorAll(".hero__more--section"),
 };
-const navLinks = document.querySelectorAll("#nav-link");
+const menus = {
+  menuWrap: document.querySelector(".menu-wrap"),
+  headerWrap: document.querySelector("nav.header"),
+  navLinks: document.querySelectorAll(".nav__link"),
+  navSocialLink: document.querySelectorAll(".socials__links--horizontal"),
+  footer: document.querySelector(".menu-wrap--footer"),
+};
+
 const titleChar = Splitting({ target: hero.heading, by: "chars" });
 
 preloadImages().then(() => {
   console.log("Ready");
-  // Call loading
+  navImg.setAttribute("src", image1);
 });
 
 const animateLoaderBanner = () => {
@@ -67,7 +79,7 @@ const animateLoaderBanner = () => {
     .to(".loader", {
       delay: -0.2,
       duration: 0.7,
-      ease: "power4.out",
+      ease: "power3.out",
       y: "100%",
       display: "none",
       onComplete: () => {
@@ -157,7 +169,11 @@ const openMenu = () => {
       0.05
     )
     // Now reveal
-    .set(menuWrap, { display: "flex" })
+    .set(menus.menuWrap, { display: "flex" })
+    .set([menus.navLinks, menus.navSocialLink, menus.footer], {
+      opacity: 0,
+      y: 200,
+    })
     .set(overlayPath, {
       attr: { d: "M 0 0 V 100 Q 50 100 100 100 V 0 z" },
     })
@@ -170,16 +186,40 @@ const openMenu = () => {
       duration: 0.8,
       ease: "power4",
       attr: { d: "M 0 0 V 0 Q 50 0 100 0 V 0 z" },
-    });
+    })
+    .to(
+      [menus.navLinks, menus.navSocialLink, menus.footer],
+      {
+        delay: -0.6,
+        duration: 0.7,
+        opacity: 1,
+        stagger: 0.05,
+        ease: "power3.out",
+        y: 0,
+      },
+      ">-=0.5"
+    );
 };
 
 const closeMenu = () => {
   if (isAnimating) return;
   isAnimating = true;
-
+  // Slide Texts
+  gsap.timeline().to(
+    [menus.navLinks, menus.navSocialLink, menus.footer],
+    {
+      duration: 0.7,
+      ease: "power3.out",
+      opacity: 0,
+      y: 200,
+    },
+    "+=0.1"
+  );
+  // Animate Paths
   gsap
     .timeline({
       onComplete: () => (isAnimating = false),
+      delay: -0.4,
     })
     .set(overlayPath, {
       attr: { d: "M 0 0 V 0 Q 50 0 100 0 V 0 z" },
@@ -208,7 +248,7 @@ const closeMenu = () => {
     .set(overlayPath, {
       attr: { d: "M 0 100 V 0 Q 50 0 100 0 V 100 z" },
     })
-    .set(menuWrap, { display: "none" })
+    .set(menus.menuWrap, { display: "none" })
     .to(overlayPath, {
       duration: 0.3,
       ease: "power2.in",
@@ -231,25 +271,39 @@ const closeMenu = () => {
     );
 };
 
-// Hover State on links that switches the image
-navLinks.forEach((link) => {
-  // if ("Contact" in link.innerText) {
-  //   console.log("The contact");
-  // }
-  link.addEventListener("mouseenter", () => {
-    const { name } = link.dataset;
-    if (name === "work") {
-      console.log("On Work");
-    }
-    if (name === "studio") {
-      console.log("On Studio");
-    }
-    if (name === "contact") {
-      console.log("On Studio");
-    }
-  });
-});
-
 openMenuCtrl.addEventListener("click", openMenu);
 closeMenuCtrl.addEventListener("click", closeMenu);
 animateLoaderBanner();
+
+// Hover State on links that switches the image
+menus.navLinks.forEach((link) => {
+  link.addEventListener("mousemove", (e) => {
+    const { name } = link.dataset;
+    if (name === "studio") {
+      gsap.set(navImg, { attr: { src: image2 } });
+    } else if (name === "contact") {
+      gsap.set(navImg, { attr: { src: image3 } });
+    } else {
+      gsap.set(navImg, { attr: { src: image1 } });
+    }
+    hideImg.style.transform = `translate(-170%, -50% ) rotate(5deg)`;
+    navImg.style.transform = "scale(1, 1)";
+    hideImg.style.opacity = 1;
+    navImg.style.opacity = 1;
+
+    // Image move with cursor
+    gsap.to(hideImg, {
+      duration: 0.1,
+      ease: "power4.out",
+      left: e.clientX + "px",
+      top: e.clientY + "px",
+    });
+  });
+
+  link.addEventListener("mouseleave", () => {
+    hideImg.style.opacity = 0;
+    navImg.style.opacity = 0;
+    hideImg.style.transform = `translate(-50%, -50%) rotate(-5deg)`;
+    navImg.style.transform = "scale(0.8, 0.8)";
+  });
+});

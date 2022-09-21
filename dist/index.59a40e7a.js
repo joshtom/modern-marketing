@@ -539,28 +539,41 @@ var _splittingCellsCss = require("splitting/dist/splitting-cells.css");
 var _splitting = require("splitting");
 var _splittingDefault = parcelHelpers.interopDefault(_splitting);
 var _utils = require("./utils");
+var _23Jpg = require("../assets/img/23.jpg");
+var _23JpgDefault = parcelHelpers.interopDefault(_23Jpg);
+var _13Jpg = require("../assets/img/13.jpg");
+var _13JpgDefault = parcelHelpers.interopDefault(_13Jpg);
+var _14Jpg = require("../assets/img/14.jpg");
+var _14JpgDefault = parcelHelpers.interopDefault(_14Jpg);
 (0, _splittingDefault.default)();
 let isAnimating = false;
 let tl = (0, _gsap.gsap).timeline();
 const overlayPath = document.querySelector(".overlay__path");
 const openMenuCtrl = document.querySelector("button.button-menu");
 const closeMenuCtrl = document.querySelector("button.button-close");
-const menuWrap = document.querySelector(".menu-wrap");
 const loaderText = document.querySelector("#loader-text");
 const cards = document.querySelectorAll(".card");
+const navImg = document.querySelector(".menu-wrap .hidden-img img");
+const hideImg = document.querySelector(".menu-wrap .hidden-img");
 const hero = {
     heading: document.querySelector(".hero__title"),
     char: document.querySelector("span.char"),
     moresection: document.querySelectorAll(".hero__more--section")
 };
-const navLinks = document.querySelectorAll("#nav-link");
+const menus = {
+    menuWrap: document.querySelector(".menu-wrap"),
+    headerWrap: document.querySelector("nav.header"),
+    navLinks: document.querySelectorAll(".nav__link"),
+    navSocialLink: document.querySelectorAll(".socials__links--horizontal"),
+    footer: document.querySelector(".menu-wrap--footer")
+};
 const titleChar = (0, _splittingDefault.default)({
     target: hero.heading,
     by: "chars"
 });
 (0, _utils.preloadImages)().then(()=>{
     console.log("Ready");
-// Call loading
+    navImg.setAttribute("src", (0, _23JpgDefault.default));
 });
 const animateLoaderBanner = ()=>{
     const result = (0, _splittingDefault.default)({
@@ -590,7 +603,7 @@ const animateLoaderBanner = ()=>{
     .to(".loader", {
         delay: -0.2,
         duration: 0.7,
-        ease: "power4.out",
+        ease: "power3.out",
         y: "100%",
         display: "none",
         onComplete: ()=>{
@@ -655,8 +668,15 @@ const openMenu = ()=>{
         y: -200,
         stagger: 0.05
     }, 0.05)// Now reveal
-    .set(menuWrap, {
+    .set(menus.menuWrap, {
         display: "flex"
+    }).set([
+        menus.navLinks,
+        menus.navSocialLink,
+        menus.footer
+    ], {
+        opacity: 0,
+        y: 200
     }).set(overlayPath, {
         attr: {
             d: "M 0 0 V 100 Q 50 100 100 100 V 0 z"
@@ -673,13 +693,37 @@ const openMenu = ()=>{
         attr: {
             d: "M 0 0 V 0 Q 50 0 100 0 V 0 z"
         }
-    });
+    }).to([
+        menus.navLinks,
+        menus.navSocialLink,
+        menus.footer
+    ], {
+        delay: -0.6,
+        duration: 0.7,
+        opacity: 1,
+        stagger: 0.05,
+        ease: "power3.out",
+        y: 0
+    }, ">-=0.5");
 };
 const closeMenu = ()=>{
     if (isAnimating) return;
     isAnimating = true;
+    // Slide Texts
+    (0, _gsap.gsap).timeline().to([
+        menus.navLinks,
+        menus.navSocialLink,
+        menus.footer
+    ], {
+        duration: 0.7,
+        ease: "power3.out",
+        opacity: 0,
+        y: 200
+    }, "+=0.1");
+    // Animate Paths
     (0, _gsap.gsap).timeline({
-        onComplete: ()=>isAnimating = false
+        onComplete: ()=>isAnimating = false,
+        delay: -0.4
     }).set(overlayPath, {
         attr: {
             d: "M 0 0 V 0 Q 50 0 100 0 V 0 z"
@@ -707,7 +751,7 @@ const closeMenu = ()=>{
         attr: {
             d: "M 0 100 V 0 Q 50 0 100 0 V 100 z"
         }
-    }).set(menuWrap, {
+    }).set(menus.menuWrap, {
         display: "none"
     }).to(overlayPath, {
         duration: 0.3,
@@ -731,23 +775,49 @@ const closeMenu = ()=>{
         stagger: -0.05
     }, ">-=1.1");
 };
-// Hover State on links that switches the image
-navLinks.forEach((link)=>{
-    // if ("Contact" in link.innerText) {
-    //   console.log("The contact");
-    // }
-    link.addEventListener("mouseenter", ()=>{
-        const { name  } = link.dataset;
-        if (name === "work") console.log("On Work");
-        if (name === "studio") console.log("On Studio");
-        if (name === "contact") console.log("On Studio");
-    });
-});
 openMenuCtrl.addEventListener("click", openMenu);
 closeMenuCtrl.addEventListener("click", closeMenu);
 animateLoaderBanner();
+// Hover State on links that switches the image
+menus.navLinks.forEach((link)=>{
+    link.addEventListener("mousemove", (e)=>{
+        const { name  } = link.dataset;
+        if (name === "studio") (0, _gsap.gsap).set(navImg, {
+            attr: {
+                src: (0, _13JpgDefault.default)
+            }
+        });
+        else if (name === "contact") (0, _gsap.gsap).set(navImg, {
+            attr: {
+                src: (0, _14JpgDefault.default)
+            }
+        });
+        else (0, _gsap.gsap).set(navImg, {
+            attr: {
+                src: (0, _23JpgDefault.default)
+            }
+        });
+        hideImg.style.transform = `translate(-170%, -50% ) rotate(5deg)`;
+        navImg.style.transform = "scale(1, 1)";
+        hideImg.style.opacity = 1;
+        navImg.style.opacity = 1;
+        // Image move with cursor
+        (0, _gsap.gsap).to(hideImg, {
+            duration: 0.1,
+            ease: "power4.out",
+            left: e.clientX + "px",
+            top: e.clientY + "px"
+        });
+    });
+    link.addEventListener("mouseleave", ()=>{
+        hideImg.style.opacity = 0;
+        navImg.style.opacity = 0;
+        hideImg.style.transform = `translate(-50%, -50%) rotate(-5deg)`;
+        navImg.style.transform = "scale(0.8, 0.8)";
+    });
+});
 
-},{"gsap":"fPSuC","splitting/dist/splitting.css":"3uR7n","splitting/dist/splitting-cells.css":"7jeGL","splitting":"77jB6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./utils":"72Dku"}],"fPSuC":[function(require,module,exports) {
+},{"gsap":"fPSuC","splitting/dist/splitting.css":"3uR7n","splitting/dist/splitting-cells.css":"7jeGL","splitting":"77jB6","./utils":"72Dku","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../assets/img/13.jpg":"e8609","../assets/img/23.jpg":"ausFJ","../assets/img/14.jpg":"dHuSN"}],"fPSuC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "gsap", ()=>gsapWithCSS);
@@ -5436,6 +5506,49 @@ const preloadImages = (selector = "img")=>{
     return EvEmitter;
 });
 
-},{}]},["7ZoMj","8lRBv"], "8lRBv", "parcelRequirea294")
+},{}],"e8609":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "13.57a216e5.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"ausFJ":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "23.7c2f9b12.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"dHuSN":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "14.2450ffbf.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}]},["7ZoMj","8lRBv"], "8lRBv", "parcelRequirea294")
 
 //# sourceMappingURL=index.59a40e7a.js.map
