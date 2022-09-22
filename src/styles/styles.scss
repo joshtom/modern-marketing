@@ -572,38 +572,6 @@ a {
   height: 100%;
 }
 
-// Responsive
-@media screen and (max-width: 53rem) {
-  #main-container {
-    height: auto;
-  }
-  .header__wrapper--LN {
-    display: none;
-  }
-  .hero {
-    &__title {
-      font-size: 8vw;
-      width: 90%;
-    }
-    &__more {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-  }
-  .marketing-cards {
-    grid-template-columns: repeat(4, 270px) !important;
-    overflow-x: scroll;
-    overflow-y: visible;
-  }
-}
-
-// Hide Hidden image on mobile
-@media screen and (max-width: 560px) {
-  .hidden-img {
-    display: hidden;
-    position: absolute;
-  }
-}
-
 /* WORK PAGE */
 .work {
   padding: 20px 25px;
@@ -635,6 +603,29 @@ a {
   }
 
   &__section {
+    position: relative;
+    &--image {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      object-fit: contain;
+      transform: translateX(-50%) translateY(-50%) scale(0.8);
+      transition: all 0.5s ease-out;
+      border-radius: 8px;
+      top: 50%;
+      left: 50%;
+      z-index: -1;
+      opacity: 0;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        mix-blend-mode: difference;
+        transition: all 0.4s ease-out;
+      }
+    }
     &--list {
       padding-top: 1.4rem;
       padding-bottom: 1.4rem;
@@ -643,6 +634,7 @@ a {
       grid-template-columns: 1fr 1fr;
       align-items: center;
       font-size: 14px;
+      cursor: pointer;
 
       &::before {
         position: absolute;
@@ -652,6 +644,25 @@ a {
         bottom: 0;
         height: 0.5px;
         background-color: var(--color-gray);
+      }
+      &::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 0.5px;
+        background-color: var(--color-white);
+        transform-origin: left center;
+        transform: scaleX(0);
+        transition: transform 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+
+      &:hover {
+        &::after {
+          transform: scaleX(1);
+        }
+        color: var(--color-gray);
       }
 
       .tags-and-year {
@@ -687,5 +698,41 @@ a {
         }
       }
     }
+  }
+}
+
+// Responsive
+@media screen and (max-width: 53rem) {
+  #main-container {
+    height: auto;
+  }
+  .header__wrapper--LN {
+    display: none;
+  }
+  .hero {
+    &__title {
+      font-size: 8vw;
+      width: 90%;
+    }
+    &__more {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+  .marketing-cards {
+    grid-template-columns: repeat(4, 270px) !important;
+    overflow-x: scroll;
+    overflow-y: visible;
+  }
+
+  .work__section--list .tags-and-year .tags {
+    display: none;
+  }
+}
+
+// Hide Hidden image on mobile
+@media screen and (max-width: 560px) {
+  .hidden-img {
+    display: hidden;
+    position: absolute;
   }
 }

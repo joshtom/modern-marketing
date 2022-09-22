@@ -6,6 +6,15 @@ import { preloadImages } from "./utils";
 import image1 from "../assets/img/23.jpg";
 import image2 from "../assets/img/13.jpg";
 import image3 from "../assets/img/14.jpg";
+import image4 from "../assets/img/2.jpg";
+import image5 from "../assets/img/22.jpg";
+import image6 from "../assets/img/30.jpg";
+import image7 from "../assets/img/31.jpg";
+import image8 from "../assets/img/32.jpg";
+import image9 from "../assets/img/36.jpg";
+import image10 from "../assets/img/37.jpg";
+
+// Work Image Import
 
 // Barba
 import barba from "@barba/core";
@@ -40,11 +49,13 @@ const loaderText = document.querySelector("#loader-text");
 const cards = document.querySelectorAll(".card");
 const navImg = document.querySelector(".menu-wrap .hidden-img img");
 const hideImg = document.querySelector(".menu-wrap .hidden-img");
+
 const hero = {
   heading: document.querySelector(".hero__title"),
   char: document.querySelector("span.char"),
   moresection: document.querySelectorAll(".hero__more--section"),
 };
+
 const menus = {
   menuWrap: document.querySelector(".menu-wrap"),
   headerWrap: document.querySelector("nav.header"),
@@ -52,6 +63,10 @@ const menus = {
   navSocialLink: document.querySelectorAll(".socials__links--horizontal"),
   footer: document.querySelector(".menu-wrap--footer"),
 };
+
+const workImgWrapper = document.querySelector(".work__section--image");
+const workImg = document.querySelector(".work__section--image img");
+const workAccordion = document.querySelectorAll(".work__section--list");
 
 const titleChar = Splitting({ target: hero.heading, by: "chars" });
 
@@ -319,7 +334,7 @@ menus.navLinks.forEach((link) => {
 
     // Image move with cursor
     gsap.to(hideImg, {
-      duration: 0.1,
+      duration: 0.01,
       ease: "power4.out",
       left: e.clientX + "px",
       top: e.clientY + "px",
@@ -331,5 +346,68 @@ menus.navLinks.forEach((link) => {
     navImg.style.opacity = 0;
     hideImg.style.transform = `translate(-50%, -50%) rotate(-5deg)`;
     navImg.style.transform = "scale(0.8, 0.8)";
+  });
+});
+
+const getAccordionImage = (number) => {
+  switch (number) {
+    case "1":
+      workImg.setAttribute("src", image4);
+      break;
+    case "2":
+      workImg.setAttribute("src", image5);
+      break;
+    case "3":
+      workImg.setAttribute("src", image6);
+      break;
+    case "4":
+      workImg.setAttribute("src", image7);
+      break;
+    case "5":
+      workImg.setAttribute("src", image8);
+      break;
+    case "6":
+      workImg.setAttribute("src", image9);
+      break;
+    case "7":
+      workImg.setAttribute("src", image10);
+      break;
+    case "8":
+      workImg.setAttribute("src", image1);
+      break;
+    case "9":
+      workImg.setAttribute("src", image2);
+      break;
+    case "10":
+      workImg.setAttribute("src", image3);
+      break;
+
+    default:
+      workImg.setAttribute("src", image4);
+      break;
+  }
+};
+
+// Hover State for Work divs
+workAccordion.forEach((el) => {
+  el.addEventListener("mousemove", (e) => {
+    const { number } = el.dataset;
+    getAccordionImage(number);
+    // Use Switch for a little syntactic sugar
+
+    workImgWrapper.style.opacity = 1;
+    workImgWrapper.style.zIndex = 1;
+    workImgWrapper.style.transform = `translate(-120%, -80% ) rotate(5deg)`;
+
+    gsap.to(workImgWrapper, {
+      duration: 0.1,
+      ease: "power4.out",
+      // left: e.clientX + "px",
+      top: e.clientY + "px",
+    });
+  });
+
+  el.addEventListener("mouseleave", () => {
+    workImgWrapper.style.opacity = 0;
   });
 });

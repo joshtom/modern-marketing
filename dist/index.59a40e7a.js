@@ -545,6 +545,21 @@ var _13Jpg = require("../assets/img/13.jpg");
 var _13JpgDefault = parcelHelpers.interopDefault(_13Jpg);
 var _14Jpg = require("../assets/img/14.jpg");
 var _14JpgDefault = parcelHelpers.interopDefault(_14Jpg);
+var _2Jpg = require("../assets/img/2.jpg");
+var _2JpgDefault = parcelHelpers.interopDefault(_2Jpg);
+var _22Jpg = require("../assets/img/22.jpg");
+var _22JpgDefault = parcelHelpers.interopDefault(_22Jpg);
+var _30Jpg = require("../assets/img/30.jpg");
+var _30JpgDefault = parcelHelpers.interopDefault(_30Jpg);
+var _31Jpg = require("../assets/img/31.jpg");
+var _31JpgDefault = parcelHelpers.interopDefault(_31Jpg);
+var _32Jpg = require("../assets/img/32.jpg");
+var _32JpgDefault = parcelHelpers.interopDefault(_32Jpg);
+var _36Jpg = require("../assets/img/36.jpg");
+var _36JpgDefault = parcelHelpers.interopDefault(_36Jpg);
+var _37Jpg = require("../assets/img/37.jpg");
+var _37JpgDefault = parcelHelpers.interopDefault(_37Jpg);
+// Work Image Import
 // Barba
 var _core = require("@barba/core");
 var _coreDefault = parcelHelpers.interopDefault(_core);
@@ -587,6 +602,9 @@ const menus = {
     navSocialLink: document.querySelectorAll(".socials__links--horizontal"),
     footer: document.querySelector(".menu-wrap--footer")
 };
+const workImgWrapper = document.querySelector(".work__section--image");
+const workImg = document.querySelector(".work__section--image img");
+const workAccordion = document.querySelectorAll(".work__section--list");
 const titleChar = (0, _splittingDefault.default)({
     target: hero.heading,
     by: "chars"
@@ -833,7 +851,7 @@ menus.navLinks.forEach((link)=>{
         navImg.style.opacity = 1;
         // Image move with cursor
         (0, _gsap.gsap).to(hideImg, {
-            duration: 0.1,
+            duration: 0.01,
             ease: "power4.out",
             left: e.clientX + "px",
             top: e.clientY + "px"
@@ -846,8 +864,65 @@ menus.navLinks.forEach((link)=>{
         navImg.style.transform = "scale(0.8, 0.8)";
     });
 });
+const getAccordionImage = (number)=>{
+    switch(number){
+        case "1":
+            workImg.setAttribute("src", (0, _2JpgDefault.default));
+            break;
+        case "2":
+            workImg.setAttribute("src", (0, _22JpgDefault.default));
+            break;
+        case "3":
+            workImg.setAttribute("src", (0, _30JpgDefault.default));
+            break;
+        case "4":
+            workImg.setAttribute("src", (0, _31JpgDefault.default));
+            break;
+        case "5":
+            workImg.setAttribute("src", (0, _32JpgDefault.default));
+            break;
+        case "6":
+            workImg.setAttribute("src", (0, _36JpgDefault.default));
+            break;
+        case "7":
+            workImg.setAttribute("src", (0, _37JpgDefault.default));
+            break;
+        case "8":
+            workImg.setAttribute("src", (0, _23JpgDefault.default));
+            break;
+        case "9":
+            workImg.setAttribute("src", (0, _13JpgDefault.default));
+            break;
+        case "10":
+            workImg.setAttribute("src", (0, _14JpgDefault.default));
+            break;
+        default:
+            workImg.setAttribute("src", (0, _2JpgDefault.default));
+            break;
+    }
+};
+// Hover State for Work divs
+workAccordion.forEach((el)=>{
+    el.addEventListener("mousemove", (e)=>{
+        const { number  } = el.dataset;
+        getAccordionImage(number);
+        // Use Switch for a little syntactic sugar
+        workImgWrapper.style.opacity = 1;
+        workImgWrapper.style.zIndex = 1;
+        workImgWrapper.style.transform = `translate(-120%, -80% ) rotate(5deg)`;
+        (0, _gsap.gsap).to(workImgWrapper, {
+            duration: 0.1,
+            ease: "power4.out",
+            // left: e.clientX + "px",
+            top: e.clientY + "px"
+        });
+    });
+    el.addEventListener("mouseleave", ()=>{
+        workImgWrapper.style.opacity = 0;
+    });
+});
 
-},{"gsap":"fPSuC","splitting/dist/splitting.css":"3uR7n","splitting/dist/splitting-cells.css":"7jeGL","splitting":"77jB6","./utils":"72Dku","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../assets/img/13.jpg":"e8609","../assets/img/23.jpg":"ausFJ","../assets/img/14.jpg":"dHuSN","@barba/core":"gIWbX"}],"fPSuC":[function(require,module,exports) {
+},{"gsap":"fPSuC","splitting/dist/splitting.css":"3uR7n","splitting/dist/splitting-cells.css":"7jeGL","splitting":"77jB6","./utils":"72Dku","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../assets/img/13.jpg":"e8609","../assets/img/23.jpg":"ausFJ","../assets/img/14.jpg":"dHuSN","@barba/core":"gIWbX","../assets/img/2.jpg":"km1CC","../assets/img/22.jpg":"izx14","../assets/img/30.jpg":"7HcAR","../assets/img/31.jpg":"3eSYH","../assets/img/32.jpg":"adCin","../assets/img/36.jpg":"73xO0","../assets/img/37.jpg":"3QeI9"}],"fPSuC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "gsap", ()=>gsapWithCSS);
@@ -6726,6 +6801,27 @@ module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "14.245
     }());
 });
 
-},{}]},["7ZoMj","8lRBv"], "8lRBv", "parcelRequirea294")
+},{}],"km1CC":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "2.c07891fd.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"izx14":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "22.2ec4908f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"7HcAR":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "30.2f8355e8.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"3eSYH":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "31.bf0e792d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"adCin":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "32.25f682a7.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"73xO0":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "36.a6d28ff9.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"3QeI9":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("ixJtV") + "37.8c6396cb.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}]},["7ZoMj","8lRBv"], "8lRBv", "parcelRequirea294")
 
 //# sourceMappingURL=index.59a40e7a.js.map
