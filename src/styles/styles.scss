@@ -30,9 +30,8 @@ body {
 }
 
 .loader {
-  background-color: var(--color-dark);
-  background-color: var(--color-green-dark);
-  color: var(--color-text);
+  background-color: var(--color-text);
+  color: var(--color-dark);
   position: absolute;
   width: 100%;
   height: 100vh;
@@ -44,6 +43,7 @@ body {
   #loader-text {
     font-size: 36px;
     color: var(--color-text);
+    font-weight: 100;
   }
 }
 a {
@@ -51,7 +51,7 @@ a {
 }
 
 #main-container {
-  height: 100vh;
+  // height: 100vh;
   display: grid;
 }
 
@@ -70,6 +70,7 @@ a {
   }
   &__logo {
     cursor: pointer;
+    font-weight: 500;
   }
   &__wrapper {
     display: flex;
@@ -347,10 +348,23 @@ a {
   }
 }
 
+// Hero Section Home
 .hero {
   padding: 2rem 20px;
   &__text__wrapper {
     overflow: hidden;
+    /* Split animation */
+    .splitting .char {
+      animation: slide-in 0.5s cubic-bezier(0.5, 0, 0.5, 1) both;
+      animation-delay: calc(60ms * var(--char-index));
+    }
+
+    @keyframes slide-in {
+      from {
+        transform: translateY(0.8em) scale(0.5);
+        opacity: 0;
+      }
+    }
   }
   &__title {
     font-size: 4vw;
@@ -437,6 +451,7 @@ a {
   }
 }
 
+// Marketing cards Home
 .marketing-cards {
   padding: 2rem 20px;
   display: grid;
@@ -555,22 +570,6 @@ a {
   pointer-events: none;
   width: 100%;
   height: 100%;
-  //   background-color: red;
-}
-
-.hero__text__wrapper {
-  /* Split animation */
-  .splitting .char {
-    animation: slide-in 0.5s cubic-bezier(0.5, 0, 0.5, 1) both;
-    animation-delay: calc(60ms * var(--char-index));
-  }
-
-  @keyframes slide-in {
-    from {
-      transform: translateY(0.8em) scale(0.5);
-      opacity: 0;
-    }
-  }
 }
 
 // Responsive
@@ -602,5 +601,91 @@ a {
   .hidden-img {
     display: hidden;
     position: absolute;
+  }
+}
+
+/* WORK PAGE */
+.work {
+  padding: 20px 25px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding-bottom: 20px;
+    &::before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      height: 0.5px;
+      background-color: var(--color-text);
+    }
+
+    h1 {
+      font-size: 6vw;
+      line-height: 0.7;
+      font-family: var(--font-roboto);
+      font-weight: 500;
+    }
+    p {
+      align-self: flex-end;
+    }
+  }
+
+  &__section {
+    &--list {
+      padding-top: 1.4rem;
+      padding-bottom: 1.4rem;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      font-size: 14px;
+
+      &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 0.5px;
+        background-color: var(--color-gray);
+      }
+
+      .tags-and-year {
+        display: grid;
+        grid-template-columns: 7fr 1fr;
+        align-items: center;
+
+        .tags {
+          display: flex;
+          list-style-type: none;
+          gap: 20px;
+
+          li {
+            text-transform: uppercase;
+            position: relative;
+
+            &::before {
+              position: absolute;
+              content: "-";
+              top: 0;
+              left: -13px;
+            }
+
+            &:first-child {
+              &::before {
+                content: "";
+              }
+            }
+          }
+        }
+        .year {
+          justify-self: flex-end;
+        }
+      }
+    }
   }
 }

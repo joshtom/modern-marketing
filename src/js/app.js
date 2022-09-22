@@ -7,6 +7,27 @@ import image1 from "../assets/img/23.jpg";
 import image2 from "../assets/img/13.jpg";
 import image3 from "../assets/img/14.jpg";
 
+// Barba
+import barba from "@barba/core";
+
+barba.init({
+  debug: true,
+  transitions: [
+    {
+      name: "switch",
+      leave({ current }) {
+        document.body.style.backgroundColor = "red";
+        // closeMenu()
+      },
+      enter({ next }) {
+        document.body.style.backgroundColor = "black";
+        // closeMenu()
+      },
+    },
+  ],
+  preventRunning: true,
+});
+
 Splitting();
 
 let isAnimating = false;
@@ -43,6 +64,7 @@ const animateLoaderBanner = () => {
   const result = Splitting({ target: loaderText, by: "chars" });
   const lt = result[0].chars;
   gsap.set(document.body, { overflow: "hidden" });
+
   tl.to(
     lt,
     {
@@ -50,8 +72,9 @@ const animateLoaderBanner = () => {
       stagger: 0.05,
       ease: "power4.in",
       color: "var(--color-dark)",
+      x: 5,
     },
-    0.5
+    "+=0.5"
   )
     .to(
       lt,
@@ -60,7 +83,7 @@ const animateLoaderBanner = () => {
         duration: 1.3,
         stagger: 0.05,
         ease: "power4.in",
-        color: "var(--color-text)",
+        color: "var(--color-number)",
       },
       0.5
     )
@@ -79,9 +102,9 @@ const animateLoaderBanner = () => {
     // Animate Loader
     .to(".loader", {
       delay: -0.2,
-      duration: 0.7,
+      duration: 1,
       ease: "power3.out",
-      y: "100%",
+      y: "-100%",
       display: "none",
       onComplete: () => {
         document.body.style.overflow = "auto";
