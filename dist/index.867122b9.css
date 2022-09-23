@@ -34,7 +34,7 @@ body {
   height: 100vh;
   z-index: 1;
   place-items: center;
-  display: grid;
+  display: none;
   position: absolute;
   overflow: hidden;
 }
@@ -55,12 +55,10 @@ a {
 
 .header {
   width: 100vw;
-  opacity: 0;
   justify-content: space-between;
   align-items: center;
   padding: 20px 25px;
   display: flex;
-  transform: translateY(-100px);
 }
 
 .header a {
@@ -576,6 +574,7 @@ a {
 
 .work {
   padding: 20px 25px;
+  overflow: hidden;
 }
 
 .work__header {
@@ -584,6 +583,7 @@ a {
   padding-bottom: 20px;
   display: flex;
   position: relative;
+  overflow: hidden;
 }
 
 .work__header:before {
@@ -598,7 +598,7 @@ a {
 
 .work__header h1 {
   font-size: 6vw;
-  line-height: .7;
+  line-height: .8;
   font-family: var(--font-roboto);
   font-weight: 500;
 }
@@ -612,8 +612,8 @@ a {
 }
 
 .work__section--image {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   object-fit: contain;
   z-index: -1;
   opacity: 0;
@@ -643,6 +643,7 @@ a {
   font-size: 14px;
   display: grid;
   position: relative;
+  overflow: hidden;
 }
 
 .work__section--list:before {
@@ -732,14 +733,14 @@ a {
     grid-template-columns: repeat(4, 270px) !important;
   }
 
-  .work__section--list .tags-and-year .tags {
+  .work__section--list .tags-and-year .tags, .work__section--image {
     display: none;
   }
 }
 
 @media screen and (max-width: 560px) {
   .hidden-img {
-    display: hidden;
+    display: none;
     position: absolute;
   }
 }

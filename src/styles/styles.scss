@@ -37,6 +37,7 @@ body {
   height: 100vh;
   z-index: 1;
   display: grid;
+  display: none;
   place-items: center;
   overflow: hidden;
 
@@ -61,8 +62,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  opacity: 0;
-  transform: translateY(-100);
+  // opacity: 0;
+  // transform: translateY(-100);
 
   a {
     color: var(--color-text);
@@ -575,12 +576,15 @@ a {
 /* WORK PAGE */
 .work {
   padding: 20px 25px;
+  overflow: hidden;
+  // background-color: white;
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     padding-bottom: 20px;
+    overflow: hidden;
     &::before {
       position: absolute;
       content: "";
@@ -593,7 +597,7 @@ a {
 
     h1 {
       font-size: 6vw;
-      line-height: 0.7;
+      line-height: 0.8;
       font-family: var(--font-roboto);
       font-weight: 500;
     }
@@ -604,10 +608,11 @@ a {
 
   &__section {
     position: relative;
+    // overflow: hidden;
     &--image {
       position: absolute;
-      width: 400px;
-      height: 400px;
+      width: 350px;
+      height: 350px;
       object-fit: contain;
       transform: translateX(-50%) translateY(-50%) scale(0.8);
       transition: all 0.5s ease-out;
@@ -635,6 +640,7 @@ a {
       align-items: center;
       font-size: 14px;
       cursor: pointer;
+      overflow: hidden;
 
       &::before {
         position: absolute;
@@ -724,7 +730,8 @@ a {
     overflow-y: visible;
   }
 
-  .work__section--list .tags-and-year .tags {
+  .work__section--list .tags-and-year .tags,
+  .work__section--image {
     display: none;
   }
 }
@@ -732,7 +739,7 @@ a {
 // Hide Hidden image on mobile
 @media screen and (max-width: 560px) {
   .hidden-img {
-    display: hidden;
+    display: none;
     position: absolute;
   }
 }
