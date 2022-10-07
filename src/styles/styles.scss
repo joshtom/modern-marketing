@@ -176,7 +176,10 @@ a {
     .logo-text {
       margin-left: 2rem;
       color: var(--color-dark);
-      font-weight: 700;
+      font-weight: 600;
+      a {
+        color: var(--color-dark);
+      }
     }
 
     button.button-close {

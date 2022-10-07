@@ -172,7 +172,11 @@ a {
 .menu-wrap__header .logo-text {
   color: var(--color-dark);
   margin-left: 2rem;
-  font-weight: 700;
+  font-weight: 600;
+}
+
+.menu-wrap__header .logo-text a {
+  color: var(--color-dark);
 }
 
 .menu-wrap__header button.button-close {
