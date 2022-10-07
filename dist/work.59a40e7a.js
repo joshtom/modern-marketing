@@ -540,13 +540,13 @@ var _splitting = require("splitting");
 var _splittingDefault = parcelHelpers.interopDefault(_splitting);
 var _core = require("@barba/core");
 var _coreDefault = parcelHelpers.interopDefault(_core);
+var _heroItem = require("./heroItem");
 var _utils = require("./utils");
 var _menu = require("./menu");
-var _heroItem = require("./heroItem");
+const heroitem = new (0, _heroItem.heroItem)();
 (0, _splittingDefault.default)();
 const menu = new (0, _menu.Menu)();
-const heroitem = new (0, _heroItem.heroItem)();
-const { workAccordion , workImgWrapper , workImg  } = heroitem.DOM;
+const { openMenuCtrl , closeMenuCtrl  } = menu.DOM;
 (0, _coreDefault.default).init({
     debug: true,
     cacheIgnore: [
@@ -583,7 +583,7 @@ const { workAccordion , workImgWrapper , workImg  } = heroitem.DOM;
                     autoAlpha: 1,
                     ease: "none"
                 });
-                window.scrollTo(0, 0);
+                // window.scrollTo(0, 0);
                 (0, _utils.animationEnter)(next.container);
             }
         }, 
@@ -593,12 +593,23 @@ const { workAccordion , workImgWrapper , workImg  } = heroitem.DOM;
             namespace: "work",
             beforeEnter ({ next  }) {
                 (0, _utils.workAccordionCall)(document.querySelectorAll(".work__section--list"), document.querySelector(".work__section--image"), document.querySelector(".work__section--image img"));
+                const heading = document.querySelector(".hero__title");
+                const moresection = document.querySelectorAll(".hero__more--section");
+                const accordionItems = document.querySelectorAll(".work__section--list");
+                openMenuCtrl.addEventListener("click", ()=>(0, _utils.openMenuWork)(heading, moresection, accordionItems), false);
+                closeMenuCtrl.addEventListener("click", ()=>(0, _utils.closeMenuWork)(heading, moresection, accordionItems), false);
             },
             beforeLeave () {}
         },
         {
             namespace: "home",
-            beforeEnter ({ next  }) {},
+            beforeEnter ({ next  }) {
+                const heading = document.querySelector(".hero__title");
+                const moresection = document.querySelectorAll(".hero__more--section");
+                const cards = document.querySelectorAll(".card");
+                openMenuCtrl.addEventListener("click", ()=>(0, _utils.openMenuHome)(heading, moresection, cards), false);
+                closeMenuCtrl.addEventListener("click", ()=>(0, _utils.closeMenuHome)(heading, moresection, cards), false);
+            },
             beforeLeave () {}
         }, 
     ],
@@ -614,7 +625,7 @@ let cbk = function(e) {
 };
 for(let i = 0; i < links.length; i++)links[i].addEventListener("click", cbk);
 
-},{"gsap":"fPSuC","splitting/dist/splitting.css":"3uR7n","splitting/dist/splitting-cells.css":"7jeGL","splitting":"77jB6","@barba/core":"gIWbX","./utils":"72Dku","./menu":"dTgwB","./heroItem":"5m158","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fPSuC":[function(require,module,exports) {
+},{"gsap":"fPSuC","splitting/dist/splitting.css":"3uR7n","splitting/dist/splitting-cells.css":"7jeGL","splitting":"77jB6","@barba/core":"gIWbX","./utils":"72Dku","./menu":"dTgwB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./heroItem":"5m158"}],"fPSuC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "gsap", ()=>gsapWithCSS);
@@ -6107,6 +6118,8 @@ parcelHelpers.export(exports, "enablePointerEvents", ()=>enablePointerEvents);
 parcelHelpers.export(exports, "workAccordionCall", ()=>workAccordionCall);
 parcelHelpers.export(exports, "openMenuHome", ()=>openMenuHome);
 parcelHelpers.export(exports, "closeMenuHome", ()=>closeMenuHome);
+parcelHelpers.export(exports, "closeMenuWork", ()=>closeMenuWork);
+parcelHelpers.export(exports, "openMenuWork", ()=>openMenuWork);
 var _gsap = require("gsap");
 var _splitting = require("splitting");
 var _splittingDefault = parcelHelpers.interopDefault(_splitting);
@@ -6145,6 +6158,7 @@ const preloadImages = (selector = "img")=>{
     });
 };
 const animationEnter = (container)=>{
+    showHeader();
     return (0, _gsap.gsap).from(container, {
         duration: 1,
         autoAlpha: 0,
@@ -6270,9 +6284,7 @@ const bannerLoaderHome = ()=>{
         ease: "power3.out",
         y: "-100%",
         display: "none",
-        onComplete: ()=>{
-            document.body.style.overflow = "auto";
-        }
+        onComplete: ()=>{}
     }).to(".header", {
         duration: 0.9,
         ease: "power4",
@@ -6298,7 +6310,10 @@ const bannerLoaderHome = ()=>{
         stagger: 0.09,
         ease: (0, _gsap.Back).easeInOut.config(2.5),
         opacity: 0,
-        x: 120
+        x: 120,
+        onComplete: ()=>{
+            document.body.style.overflow = "auto";
+        }
     }, "-=1.4");
 };
 const bannerLoaderWork = ()=>{
@@ -6415,7 +6430,7 @@ const getAccordionImage = (number, workImg)=>{
     }
 };
 /**
- * @param (workImgWrapper, workImg)
+ * @param (workAccordion, workImgWrapper, workImg)
  */ const workAccordionCall = (workAccordion, workImgWrapper, workImg)=>{
     // Listen for mousemove to display the images
     workAccordion.forEach((el)=>{
@@ -6438,7 +6453,8 @@ const getAccordionImage = (number, workImg)=>{
         });
     });
 };
-const openMenuHome = ()=>{
+const openMenuHome = (heading, moresection, card)=>{
+    hideHeader();
     (0, _gsap.gsap).timeline().to([
         heading,
         moresection
@@ -6449,12 +6465,17 @@ const openMenuHome = ()=>{
         y: -200,
         stagger: 0.05,
         opacity: 0,
-        onComplete: ()=>{
-            console.log("This is now completeeeeeeeee");
-        }
-    }, 0.5);
+        onComplete: ()=>{}
+    }, 0.5).to(card, {
+        duration: 1.2,
+        stagger: 0.09,
+        ease: (0, _gsap.Back).easeInOut.config(1.7),
+        opacity: 0,
+        y: -120
+    }, "-=1.4");
 };
-const closeMenuHome = ()=>{
+const closeMenuHome = (heading, moresection, card)=>{
+    showHeader();
     (0, _gsap.gsap).timeline().to([
         heading,
         moresection
@@ -6464,8 +6485,70 @@ const closeMenuHome = ()=>{
         ease: "power4",
         y: 0,
         stagger: 0.05,
+        opacity: 1,
+        onComplete: ()=>{}
+    }, 0.5).to(card, {
+        duration: 1,
+        stagger: 0.09,
+        ease: (0, _gsap.Back).easeInOut.config(1.5),
+        opacity: 1,
+        y: 0
+    }, "-=1.4");
+};
+const openMenuWork = (workhero, workherotext, accordionItems)=>{
+    (0, _gsap.gsap).timeline().to([
+        workhero,
+        workherotext
+    ], {
+        delay: -0.9,
+        duration: 1,
+        ease: "power2.in",
+        y: -200,
+        stagger: 0.05,
+        opacity: 0
+    }, 0.5).to(accordionItems, {
+        delay: -0.8,
+        x: 100,
+        opacity: 0,
+        stagger: 0.05
+    });
+};
+closeMenuWork = (workhero, workherotext, accordionItems)=>{
+    (0, _gsap.gsap).timeline().to([
+        workhero,
+        workherotext
+    ], {
+        delay: 0.4,
+        duration: 1,
+        ease: "power4.out",
+        y: 0,
+        stagger: 0.05,
         opacity: 1
-    }, 0.5);
+    }, 0.5).to(accordionItems, {
+        delay: -1.3,
+        duration: 1,
+        x: 0,
+        opacity: 1,
+        stagger: 0.05,
+        ease: (0, _gsap.Back).easeInOut.config(1.6)
+    });
+};
+const hideHeader = ()=>{
+    (0, _gsap.gsap).to("nav.header", {
+        delay: 0.5,
+        autoAlpha: 0,
+        ease: "power2.in",
+        y: -100
+    });
+};
+const showHeader = ()=>{
+    (0, _gsap.gsap).to("nav.header", {
+        delay: 0.9,
+        duration: 0.9,
+        autoAlpha: 1,
+        ease: "power2.out",
+        y: 0
+    });
 };
 const disablePointerEvents = ()=>{
     document.body.style.pointerEvents = "none";
@@ -6550,7 +6633,6 @@ class Menu {
    * Constructor.
    * @param {Element} DOM_el - main item .menu wrap element
    */ constructor(DOM_el = null){
-        console.log("Calling this class");
         this.DOM.el = DOM_el;
         // Initialize the event on every page
         this.initEvents();
@@ -6601,9 +6683,7 @@ class Menu {
             });
             if (this.isAnimating) return;
             this.isAnimating = true;
-            (0, _gsap.gsap).set(document.body, {
-                overflow: "auto"
-            });
+            // gsap.set(document.body, { overflow: "auto" });
             // Slide Texts
             (0, _gsap.gsap).timeline().to([
                 this.DOM.navLinks,
@@ -6655,29 +6735,17 @@ class Menu {
                 ease: "power4",
                 attr: {
                     d: "M 0 100 V 100 Q 50 100 100 100 V 100 z"
-                }
-            }).to([
-                heading,
-                moresection
-            ], {
-                delay: 0.6,
-                duration: 1,
-                ease: "power4",
-                y: 0,
-                stagger: 0.05,
-                opacity: 1
-            }, 0.5);
+                },
+                onComplete: ()=>{}
+            });
         });
         this.DOM.openMenuCtrl.addEventListener("click", ()=>{
-            console.log("The hero title from click", heading);
             let tl = (0, _gsap.gsap).timeline({
                 onComplete: ()=>this.isAnimating = false
             });
             if (this.isAnimating) return;
             this.isAnimating = true;
-            (0, _gsap.gsap).set(document.body, {
-                overflow: "hidden"
-            });
+            // gsap.set(document.body, { overflow: "hidden" });
             tl.set(this.DOM.overlayPath, {
                 attr: {
                     d: "M 0 100 V 100 Q 50 100 100 100 V 100 z"
@@ -6733,24 +6801,9 @@ class Menu {
                 ease: "power3.out",
                 y: 0,
                 onComplete: ()=>{
-                    console.log("Killed");
                 // tl.kill();
                 }
             }, ">-=0.5");
-            (0, _gsap.gsap).timeline().to([
-                heading,
-                moresection
-            ], {
-                delay: -0.6,
-                duration: 1,
-                ease: "power2.in",
-                y: -200,
-                stagger: 0.05,
-                opacity: 0,
-                onComplete: ()=>{
-                    console.log("This is always consoled but this animation doesn't run after there is a transition", heading);
-                }
-            }, 0.5);
         });
     }
 }

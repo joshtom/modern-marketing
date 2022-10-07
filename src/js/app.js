@@ -3,24 +3,27 @@ import "splitting/dist/splitting.css";
 import "splitting/dist/splitting-cells.css";
 import Splitting from "splitting";
 import barba from "@barba/core";
+import { heroItem } from "./heroItem";
 import {
   animationEnter,
   animationLeave,
   bannerLoaderHome,
   bannerLoaderWork,
+  closeMenuHome,
+  closeMenuWork,
   disablePointerEvents,
   enablePointerEvents,
+  openMenuHome,
+  openMenuWork,
   workAccordionCall,
 } from "./utils";
 import { Menu } from "./menu";
-import { heroItem } from "./heroItem";
+const heroitem = new heroItem();
 
 Splitting();
 
 const menu = new Menu();
-const heroitem = new heroItem();
-
-const { workAccordion, workImgWrapper, workImg } = heroitem.DOM;
+const { openMenuCtrl, closeMenuCtrl } = menu.DOM;
 
 barba.init({
   debug: true,
@@ -63,7 +66,7 @@ barba.init({
       enter({ next }) {
         // scroll to top of the page
         gsap.to("nav.header", { autoAlpha: 1, ease: "none" });
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         animationEnter(next.container);
       },
     },
@@ -77,12 +80,42 @@ barba.init({
           document.querySelector(".work__section--image"),
           document.querySelector(".work__section--image img")
         );
+
+        const heading = document.querySelector(".hero__title");
+        const moresection = document.querySelectorAll(".hero__more--section");
+        const accordionItems = document.querySelectorAll(
+          ".work__section--list"
+        );
+        openMenuCtrl.addEventListener(
+          "click",
+          () => openMenuWork(heading, moresection, accordionItems),
+          false
+        );
+        closeMenuCtrl.addEventListener(
+          "click",
+          () => closeMenuWork(heading, moresection, accordionItems),
+          false
+        );
       },
       beforeLeave() {},
     },
     {
       namespace: "home",
-      beforeEnter({ next }) {},
+      beforeEnter({ next }) {
+        const heading = document.querySelector(".hero__title");
+        const moresection = document.querySelectorAll(".hero__more--section");
+        const cards = document.querySelectorAll(".card");
+        openMenuCtrl.addEventListener(
+          "click",
+          () => openMenuHome(heading, moresection, cards),
+          false
+        );
+        closeMenuCtrl.addEventListener(
+          "click",
+          () => closeMenuHome(heading, moresection, cards),
+          false
+        );
+      },
       beforeLeave() {},
     },
   ],

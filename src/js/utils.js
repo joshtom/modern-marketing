@@ -46,6 +46,7 @@ const preloadImages = (selector = "img") => {
 };
 
 const animationEnter = (container) => {
+  showHeader();
   return gsap.from(container, {
     duration: 1,
     autoAlpha: 0,
@@ -183,9 +184,7 @@ const bannerLoaderHome = () => {
       ease: "power3.out",
       y: "-100%",
       display: "none",
-      onComplete: () => {
-        document.body.style.overflow = "auto";
-      },
+      onComplete: () => {},
     })
     .to(".header", {
       duration: 0.9,
@@ -226,6 +225,9 @@ const bannerLoaderHome = () => {
         ease: Back.easeInOut.config(2.5),
         opacity: 0,
         x: 120,
+        onComplete: () => {
+          document.body.style.overflow = "auto";
+        },
       },
       "-=1.4"
     );
@@ -365,7 +367,7 @@ const getAccordionImage = (number, workImg) => {
 };
 
 /**
- * @param (workImgWrapper, workImg)
+ * @param (workAccordion, workImgWrapper, workImg)
  */
 const workAccordionCall = (workAccordion, workImgWrapper, workImg) => {
   // Listen for mousemove to display the images
@@ -393,37 +395,130 @@ const workAccordionCall = (workAccordion, workImgWrapper, workImg) => {
   });
 };
 
-const openMenuHome = () => {
-  gsap.timeline().to(
-    [heading, moresection],
-    {
-      delay: -0.6,
-      duration: 1,
-      ease: "power2.in",
-      y: -200,
-      stagger: 0.05,
-      opacity: 0,
-      onComplete: () => {
-        console.log("This is now completeeeeeeeee");
+const openMenuHome = (heading, moresection, card) => {
+  hideHeader();
+  gsap
+    .timeline()
+    .to(
+      [heading, moresection],
+      {
+        delay: -0.6,
+        duration: 1,
+        ease: "power2.in",
+        y: -200,
+        stagger: 0.05,
+        opacity: 0,
+        onComplete: () => {},
       },
-    },
-    0.5
-  );
+      0.5
+    )
+    .to(
+      card,
+      {
+        duration: 1.2,
+        stagger: 0.09,
+        ease: Back.easeInOut.config(1.7),
+        opacity: 0,
+        y: -120,
+      },
+      "-=1.4"
+    );
 };
 
-const closeMenuHome = () => {
-  gsap.timeline().to(
-    [heading, moresection],
-    {
-      delay: 0.4,
-      duration: 1,
-      ease: "power4",
-      y: 0,
+const closeMenuHome = (heading, moresection, card) => {
+  showHeader();
+  gsap
+    .timeline()
+    .to(
+      [heading, moresection],
+      {
+        delay: 0.4,
+        duration: 1,
+        ease: "power4",
+        y: 0,
+        stagger: 0.05,
+        opacity: 1,
+        onComplete: () => {},
+      },
+      0.5
+    )
+    .to(
+      card,
+      {
+        duration: 1,
+        stagger: 0.09,
+        ease: Back.easeInOut.config(1.5),
+        opacity: 1,
+        y: 0,
+      },
+      "-=1.4"
+    );
+};
+
+const openMenuWork = (workhero, workherotext, accordionItems) => {
+  gsap
+    .timeline()
+    .to(
+      [workhero, workherotext],
+      {
+        delay: -0.9,
+        duration: 1,
+        ease: "power2.in",
+        y: -200,
+        stagger: 0.05,
+        opacity: 0,
+      },
+      0.5
+    )
+    .to(accordionItems, {
+      delay: -0.8,
+      x: 100,
+      opacity: 0,
       stagger: 0.05,
+    });
+};
+
+closeMenuWork = (workhero, workherotext, accordionItems) => {
+  gsap
+    .timeline()
+    .to(
+      [workhero, workherotext],
+      {
+        delay: 0.4,
+        duration: 1,
+        ease: "power4.out",
+        y: 0,
+        stagger: 0.05,
+        opacity: 1,
+      },
+      0.5
+    )
+    .to(accordionItems, {
+      delay: -1.3,
+      duration: 1,
+      x: 0,
       opacity: 1,
-    },
-    0.5
-  );
+      stagger: 0.05,
+      ease: Back.easeInOut.config(1.6),
+    });
+};
+
+const hideHeader = () => {
+  gsap.to("nav.header", {
+    delay: 0.5,
+    autoAlpha: 0,
+    ease: "power2.in",
+    y: -100,
+  });
+};
+const showHeader = () => {
+  gsap.to("nav.header", {
+    delay: 0.9,
+    duration: 0.9,
+    autoAlpha: 1,
+    ease: "power2.out",
+    y: 0,
+  });
 };
 
 const disablePointerEvents = () => {
@@ -445,4 +540,6 @@ export {
   workAccordionCall,
   openMenuHome,
   closeMenuHome,
+  closeMenuWork,
+  openMenuWork,
 };

@@ -35,7 +35,6 @@ export class Menu {
    */
 
   constructor(DOM_el = null) {
-    console.log("Calling this class");
     this.DOM.el = DOM_el;
     // Initialize the event on every page
     this.initEvents();
@@ -82,7 +81,7 @@ export class Menu {
       });
       if (this.isAnimating) return;
       this.isAnimating = true;
-      gsap.set(document.body, { overflow: "auto" });
+      // gsap.set(document.body, { overflow: "auto" });
       // Slide Texts
       gsap.timeline().to(
         [this.DOM.navLinks, this.DOM.navSocialLink, this.DOM.footer],
@@ -131,29 +130,17 @@ export class Menu {
           duration: 0.8,
           ease: "power4",
           attr: { d: "M 0 100 V 100 Q 50 100 100 100 V 100 z" },
-        })
-        .to(
-          [heading, moresection],
-          {
-            delay: 0.6,
-            duration: 1,
-            ease: "power4",
-            y: 0,
-            stagger: 0.05,
-            opacity: 1,
-          },
-          0.5
-        );
+          onComplete: () => {},
+        });
     });
 
     this.DOM.openMenuCtrl.addEventListener("click", () => {
-      console.log("The hero title from click", heading);
       let tl = gsap.timeline({
         onComplete: () => (this.isAnimating = false),
       });
       if (this.isAnimating) return;
       this.isAnimating = true;
-      gsap.set(document.body, { overflow: "hidden" });
+      // gsap.set(document.body, { overflow: "hidden" });
       tl.set(this.DOM.overlayPath, {
         attr: { d: "M 0 100 V 100 Q 50 100 100 100 V 100 z" },
         fill: "var(--color-dark)",
@@ -206,30 +193,11 @@ export class Menu {
             ease: "power3.out",
             y: 0,
             onComplete: () => {
-              console.log("Killed");
               // tl.kill();
             },
           },
           ">-=0.5"
         );
-      gsap.timeline().to(
-        [heading, moresection],
-        {
-          delay: -0.6,
-          duration: 1,
-          ease: "power2.in",
-          y: -200,
-          stagger: 0.05,
-          opacity: 0,
-          onComplete: () => {
-            console.log(
-              "This is always consoled but this animation doesn't run after there is a transition",
-              heading
-            );
-          },
-        },
-        0.5
-      );
     });
   }
 }

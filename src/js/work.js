@@ -33,53 +33,53 @@ const {
   workImg,
 } = heroitem.DOM;
 
-// const openMenu = () => {
-//   gsap
-//     .timeline()
-//     .to(
-//       [workhero, workherotext],
-//       {
-//         delay: -0.9,
-//         duration: 1,
-//         ease: "power2.in",
-//         y: -200,
-//         stagger: 0.05,
-//         opacity: 0,
-//       },
-//       0.5
-//     )
-//     .to(accordionItems, {
-//       delay: -0.8,
-//       x: 100,
-//       opacity: 0,
-//       stagger: 0.05,
-//     });
-// };
+const openMenu = () => {
+  gsap
+    .timeline()
+    .to(
+      [workhero, workherotext],
+      {
+        delay: -0.9,
+        duration: 1,
+        ease: "power2.in",
+        y: -200,
+        stagger: 0.05,
+        opacity: 0,
+      },
+      0.5
+    )
+    .to(accordionItems, {
+      delay: -0.8,
+      x: 100,
+      opacity: 0,
+      stagger: 0.05,
+    });
+};
 
-// closeMenu = () => {
-//   gsap
-//     .timeline()
-//     .to(
-//       [workhero, workherotext],
-//       {
-//         delay: 0.4,
-//         duration: 1,
-//         ease: "power4.out",
-//         y: 0,
-//         stagger: 0.05,
-//         opacity: 1,
-//       },
-//       0.5
-//     )
-//     .to(accordionItems, {
-//       delay: -1.3,
-//       duration: 1,
-//       x: 0,
-//       opacity: 1,
-//       stagger: 0.05,
-//       ease: Back.easeInOut.config(1.6),
-//     });
-// };
+closeMenu = () => {
+  gsap
+    .timeline()
+    .to(
+      [workhero, workherotext],
+      {
+        delay: 0.4,
+        duration: 1,
+        ease: "power4.out",
+        y: 0,
+        stagger: 0.05,
+        opacity: 1,
+      },
+      0.5
+    )
+    .to(accordionItems, {
+      delay: -1.3,
+      duration: 1,
+      x: 0,
+      opacity: 1,
+      stagger: 0.05,
+      ease: Back.easeInOut.config(1.6),
+    });
+};
 
 const getAccordionImage = (number) => {
   switch (number) {

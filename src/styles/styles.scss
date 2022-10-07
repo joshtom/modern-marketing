@@ -26,7 +26,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: grid;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .loader {
@@ -458,6 +458,7 @@ a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  overflow: hidden;
 
   .card {
     width: 100%;
@@ -753,7 +754,8 @@ a {
     }
   }
   .marketing-cards {
-    grid-template-columns: repeat(4, 270px) !important;
+    // grid-template-columns: repeat(4, 270px) !important;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
     overflow-x: scroll;
     overflow-y: visible;
   }
