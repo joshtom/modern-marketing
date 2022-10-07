@@ -66,7 +66,7 @@ barba.init({
       enter({ next }) {
         // scroll to top of the page
         gsap.to("nav.header", { autoAlpha: 1, ease: "none" });
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
         animationEnter(next.container);
       },
     },

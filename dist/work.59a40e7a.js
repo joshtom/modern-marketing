@@ -583,7 +583,7 @@ const { openMenuCtrl , closeMenuCtrl  } = menu.DOM;
                     autoAlpha: 1,
                     ease: "none"
                 });
-                // window.scrollTo(0, 0);
+                window.scrollTo(0, 0);
                 (0, _utils.animationEnter)(next.container);
             }
         }, 
