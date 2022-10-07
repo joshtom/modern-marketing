@@ -464,11 +464,11 @@ const openMenuWork = (workhero, workherotext, accordionItems) => {
         delay: -0.9,
         duration: 1,
         ease: "power2.in",
-        y: -200,
+        y: 100,
         stagger: 0.05,
         opacity: 0,
       },
-      0.5
+      "+=.5"
     )
     .to(accordionItems, {
       delay: -0.8,

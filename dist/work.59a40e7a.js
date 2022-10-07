@@ -593,11 +593,11 @@ const { openMenuCtrl , closeMenuCtrl  } = menu.DOM;
             namespace: "work",
             beforeEnter ({ next  }) {
                 (0, _utils.workAccordionCall)(document.querySelectorAll(".work__section--list"), document.querySelector(".work__section--image"), document.querySelector(".work__section--image img"));
-                const heading = document.querySelector(".hero__title");
-                const moresection = document.querySelectorAll(".hero__more--section");
+                const workhero = document.querySelector("#work-hero");
+                const workherotext = document.querySelector("#work-hero-text");
                 const accordionItems = document.querySelectorAll(".work__section--list");
-                openMenuCtrl.addEventListener("click", ()=>(0, _utils.openMenuWork)(heading, moresection, accordionItems), false);
-                closeMenuCtrl.addEventListener("click", ()=>(0, _utils.closeMenuWork)(heading, moresection, accordionItems), false);
+                openMenuCtrl.addEventListener("click", ()=>(0, _utils.openMenuWork)(workhero, workherotext, accordionItems), false);
+                closeMenuCtrl.addEventListener("click", ()=>(0, _utils.closeMenuWork)(workhero, workherotext, accordionItems), false);
             },
             beforeLeave () {}
         },
@@ -6503,10 +6503,10 @@ const openMenuWork = (workhero, workherotext, accordionItems)=>{
         delay: -0.9,
         duration: 1,
         ease: "power2.in",
-        y: -200,
+        y: 100,
         stagger: 0.05,
         opacity: 0
-    }, 0.5).to(accordionItems, {
+    }, "+=.5").to(accordionItems, {
         delay: -0.8,
         x: 100,
         opacity: 0,

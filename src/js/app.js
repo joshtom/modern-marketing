@@ -81,19 +81,19 @@ barba.init({
           document.querySelector(".work__section--image img")
         );
 
-        const heading = document.querySelector(".hero__title");
-        const moresection = document.querySelectorAll(".hero__more--section");
+        const workhero = document.querySelector("#work-hero");
+        const workherotext = document.querySelector("#work-hero-text");
         const accordionItems = document.querySelectorAll(
           ".work__section--list"
         );
         openMenuCtrl.addEventListener(
           "click",
-          () => openMenuWork(heading, moresection, accordionItems),
+          () => openMenuWork(workhero, workherotext, accordionItems),
           false
         );
         closeMenuCtrl.addEventListener(
           "click",
-          () => closeMenuWork(heading, moresection, accordionItems),
+          () => closeMenuWork(workhero, workherotext, accordionItems),
           false
         );
       },
