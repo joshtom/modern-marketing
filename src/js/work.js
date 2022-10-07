@@ -1,6 +1,6 @@
 import { gsap, Back } from "gsap";
 import { heroItem } from "./heroItem";
-import { Menu } from "./menu";
+// import barba from "@barba/core";
 import image1 from "../assets/img/23.jpg";
 import image2 from "../assets/img/13.jpg";
 import image3 from "../assets/img/14.jpg";
@@ -11,60 +11,75 @@ import image7 from "../assets/img/31.jpg";
 import image8 from "../assets/img/32.jpg";
 import image9 from "../assets/img/36.jpg";
 import image10 from "../assets/img/37.jpg";
+import { Menu } from "./menu";
+import barba from "@barba/core";
+import {
+  animationEnter,
+  animationLeave,
+  bannerLoaderWork,
+  disablePointerEvents,
+  enablePointerEvents,
+} from "./utils";
 
-const menu = new Menu(document.querySelector(".menu-wrap"));
 const heroitem = new heroItem();
+const menu = new Menu();
 
-const { workImg, workAccordion, workImgWrapper, workhero, accordionItems } =
-  heroitem.DOM;
+const {
+  workAccordion,
+  workImgWrapper,
+  workhero,
+  workherotext,
+  accordionItems,
+  workImg,
+} = heroitem.DOM;
 
-const openMenu = () => {
-  gsap
-    .timeline()
-    .to(
-      workhero,
-      {
-        delay: -0.9,
-        duration: 1,
-        ease: "power2.in",
-        // y: -200,
-        stagger: 0.05,
-        opacity: 0,
-      },
-      0.5
-    )
-    .to(accordionItems, {
-      delay: -0.8,
-      x: 100,
-      opacity: 0,
-      stagger: 0.05,
-    });
-};
+// const openMenu = () => {
+//   gsap
+//     .timeline()
+//     .to(
+//       [workhero, workherotext],
+//       {
+//         delay: -0.9,
+//         duration: 1,
+//         ease: "power2.in",
+//         y: -200,
+//         stagger: 0.05,
+//         opacity: 0,
+//       },
+//       0.5
+//     )
+//     .to(accordionItems, {
+//       delay: -0.8,
+//       x: 100,
+//       opacity: 0,
+//       stagger: 0.05,
+//     });
+// };
 
-closeMenu = () => {
-  gsap
-    .timeline()
-    .to(
-      workhero,
-      {
-        delay: 0.4,
-        duration: 1,
-        ease: "power4.out",
-        y: 0,
-        stagger: 0.05,
-        opacity: 1,
-      },
-      0.5
-    )
-    .to(accordionItems, {
-      delay: -1.3,
-      duration: 1,
-      x: 0,
-      opacity: 1,
-      stagger: 0.05,
-      ease: Back.easeInOut.config(1.6),
-    });
-};
+// closeMenu = () => {
+//   gsap
+//     .timeline()
+//     .to(
+//       [workhero, workherotext],
+//       {
+//         delay: 0.4,
+//         duration: 1,
+//         ease: "power4.out",
+//         y: 0,
+//         stagger: 0.05,
+//         opacity: 1,
+//       },
+//       0.5
+//     )
+//     .to(accordionItems, {
+//       delay: -1.3,
+//       duration: 1,
+//       x: 0,
+//       opacity: 1,
+//       stagger: 0.05,
+//       ease: Back.easeInOut.config(1.6),
+//     });
+// };
 
 const getAccordionImage = (number) => {
   switch (number) {
@@ -105,30 +120,80 @@ const getAccordionImage = (number) => {
   }
 };
 
+// const workAccordion = document.querySelectorAll(".work__section--list");
+
 // Listen for mousemove to display the images
-workAccordion.forEach((el) => {
-  el.addEventListener("mousemove", (e) => {
-    const { number } = el.dataset;
-    getAccordionImage(number);
-    // Use Switch for a little syntactic sugar
+const theWork = () => {
+  workAccordion.forEach((el) => {
+    el.addEventListener("mousemove", (e) => {
+      const { number } = el.dataset;
+      getAccordionImage(number);
+      // Use Switch for a little syntactic sugar
 
-    workImgWrapper.style.opacity = 1;
-    workImgWrapper.style.zIndex = 1;
-    workImgWrapper.style.transform = `translate(-120%, -80% ) rotate(5deg)`;
+      workImgWrapper.style.opacity = 1;
+      workImgWrapper.style.zIndex = 1;
+      workImgWrapper.style.transform = `translate(-120%, -80% ) rotate(5deg)`;
 
-    gsap.to(workImgWrapper, {
-      duration: 0.1,
-      ease: "power4.out",
-      // left: e.clientX + "px",
-      top: e.clientY + "px",
+      gsap.to(workImgWrapper, {
+        duration: 0.1,
+        ease: "power4.out",
+        // left: e.clientX + "px",
+        top: e.clientY + "px",
+      });
+    });
+
+    el.addEventListener("mouseleave", () => {
+      workImgWrapper.style.opacity = 0;
     });
   });
-
-  el.addEventListener("mouseleave", () => {
-    workImgWrapper.style.opacity = 0;
-  });
-});
+};
 
 // Listen to the click event
-menu.DOM.openMenuCtrl.addEventListener("click", openMenu);
-menu.DOM.closeMenuCtrl.addEventListener("click", closeMenu);
+// menu.DOM.openMenuCtrl.addEventListener("click", openMenu);
+// menu.DOM.closeMenuCtrl.addEventListener("click", closeMenu);
+barba.hooks.after(() => {
+  console.log("Getting to after");
+});
+barba.init({
+  debug: true,
+  transitions: [
+    {
+      name: "Work Transition",
+      once({
+        next: {
+          url: { path },
+        },
+      }) {
+        bannerLoaderWork();
+        theWork();
+      },
+      leave(data) {
+        const done = this.async();
+        // Menu navigation
+        gsap.to("nav.header", { autoAlpha: 0, ease: "none" });
+        animationLeave(data.current.container);
+        disablePointerEvents();
+        if (
+          data.next.url.path === "/" ||
+          data.next.url.path === "/index.html"
+        ) {
+          menu.DOM.overlayLoaderWrapperText.innerHTML = "curious";
+        } else {
+          menu.DOM.overlayLoaderWrapperText.innerHTML = "intuitive";
+        }
+        setTimeout(() => {
+          enablePointerEvents();
+          done();
+        }, 2000);
+      },
+      enter({ next }) {
+        // scroll to top of the page
+        gsap.to("nav.header", { autoAlpha: 1, ease: "none" });
+        window.scrollTo(0, 0);
+        animationEnter(next.container);
+        theWork();
+        console.log("Landing here");
+      },
+    },
+  ],
+});

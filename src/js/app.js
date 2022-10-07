@@ -1,31 +1,103 @@
+import { gsap } from "gsap";
 import "splitting/dist/splitting.css";
 import "splitting/dist/splitting-cells.css";
 import Splitting from "splitting";
-Splitting();
-import { animateLoaderBanner, preloadImages } from "./utils";
-
-// Barba
 import barba from "@barba/core";
+import {
+  animationEnter,
+  animationLeave,
+  bannerLoaderHome,
+  bannerLoaderWork,
+  disablePointerEvents,
+  enablePointerEvents,
+  workAccordionCall,
+} from "./utils";
+import { Menu } from "./menu";
+import { heroItem } from "./heroItem";
+
+Splitting();
+
+const menu = new Menu();
+const heroitem = new heroItem();
+
+const { workAccordion, workImgWrapper, workImg } = heroitem.DOM;
 
 barba.init({
   debug: true,
+  cacheIgnore: ["/work/", "/index"],
   transitions: [
     {
-      name: "switch",
-      leave({ current }) {
-        // closeMenu()
+      name: "My Awesome Transition",
+      once({
+        next: {
+          url: { path },
+        },
+      }) {
+        if (path === "/" || path === "/index.html") {
+          return bannerLoaderHome();
+        } else {
+          return bannerLoaderWork();
+        }
       },
+      beforeEnter({ next }) {},
+      leave(data) {
+        const done = this.async();
+        // Menu navigation
+        gsap.to("nav.header", { autoAlpha: 0, ease: "none" });
+        animationLeave(data.current.container);
+        disablePointerEvents();
+        if (
+          data.next.url.path === "/" ||
+          data.next.url.path === "/index.html"
+        ) {
+          menu.DOM.overlayLoaderWrapperText.innerHTML = "curious";
+        } else {
+          menu.DOM.overlayLoaderWrapperText.innerHTML = "intuitive";
+        }
+        setTimeout(() => {
+          enablePointerEvents();
+          done();
+        }, 2000);
+      },
+
       enter({ next }) {
-        // closeMenu()
+        // scroll to top of the page
+        gsap.to("nav.header", { autoAlpha: 1, ease: "none" });
+        window.scrollTo(0, 0);
+        animationEnter(next.container);
       },
+    },
+  ],
+  views: [
+    {
+      namespace: "work",
+      beforeEnter({ next }) {
+        workAccordionCall(
+          document.querySelectorAll(".work__section--list"),
+          document.querySelector(".work__section--image"),
+          document.querySelector(".work__section--image img")
+        );
+      },
+      beforeLeave() {},
+    },
+    {
+      namespace: "home",
+      beforeEnter({ next }) {},
+      beforeLeave() {},
     },
   ],
   preventRunning: true,
 });
-// const titleChar = Splitting({ target: hero.heading, by: "chars" });
 
-preloadImages().then(() => {
-  // navImg.setAttribute("src", image1);
-  // animateLoaderBanner();
-  // new Menu(document.querySelector(".menu-wrap"));
-});
+// Prevent reload if a user clicks on the current link on the same url
+let links = document.querySelectorAll("a[href]");
+let cbk = function (e) {
+  if (e.currentTarget.href === window.location.href) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+};
+
+for (let i = 0; i < links.length; i++) {
+  links[i].addEventListener("click", cbk);
+}

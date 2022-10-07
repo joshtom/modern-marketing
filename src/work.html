@@ -30,7 +30,7 @@
           <div class="header__wrapper--LN">
             <a href="#">+44 1632 960468</a>
             <span class="dot"></span>
-            <a href="#">hello@modern.agency</a>
+            <a href="./work.html">hello@modern.agency</a>
           </div>
           <div class="header__wrapper--HB">
             <button class="button-menu" aria-label="Open menu">
@@ -124,8 +124,8 @@
       <!-- Data Barba -> Only this content changes -->
       <main class="work" data-barba="container" data-barba-namespace="work">
         <header class="work__header">
-          <h1 id="work-hero" data-splitting>WORK</h1>
-          <p id="work-hero" data-splitting>FEW SELECTED WORKS</p>
+          <h1 id="work-hero">WORK</h1>
+          <p id="work-hero-text">FEW SELECTED WORKS</p>
         </header>
         <section class="work__section">
           <span class="work__section--image">
@@ -248,6 +248,9 @@
         </section>
       </main>
       <!-- Edit the paths here: https://yqnn.github.io/svg-path-editor/ -->
+      <div class="overlay-loader-wrapper">
+        <h1 class="overlay-text"></h1>
+      </div>
       <svg
         class="overlay"
         width="100%"
@@ -263,6 +266,6 @@
       </svg>
     </div>
     <script type="module" src="./js/app.js"></script>
-    <script type="module" src="./js/work.js"></script>
+    <!-- <script type="module" src="./js/work.js"></script> -->
   </body>
 </html>
