@@ -18,7 +18,6 @@ import {
   workAccordionCall,
 } from "./utils";
 import { Menu } from "./menu";
-const heroitem = new heroItem();
 
 Splitting();
 
@@ -26,8 +25,7 @@ const menu = new Menu();
 const { openMenuCtrl, closeMenuCtrl } = menu.DOM;
 
 barba.init({
-  debug: true,
-  cacheIgnore: ["/work/", "/index"],
+  debug: false,
   transitions: [
     {
       name: "My Awesome Transition",
