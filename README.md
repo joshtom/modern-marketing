@@ -5,6 +5,7 @@ A random design implementation adding animation using Gsap and Page Transition w
 * npm install or yarn install
 * npm run start or yarn start
 * Open your browser and preview on http://localhost:1234
+* npm run build or yarn build to build the project
 
 ## Inspiration
 Inspiration for the Index page was gotten on this [dribble design](https://dribbble.com/shots/17421483-Modern-Marketing-Agency-Hero)
