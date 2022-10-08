@@ -2,11 +2,6 @@ import { gsap, Back } from "gsap";
 import image1 from "../assets/img/23.jpg";
 import image2 from "../assets/img/13.jpg";
 import image3 from "../assets/img/14.jpg";
-import { heroItem } from "./heroItem";
-
-const heroitem = new heroItem();
-
-const { heading, moresection } = heroitem.DOM;
 export class Menu {
   DOM = {
     el: null,

@@ -478,7 +478,7 @@ const openMenuWork = (workhero, workherotext, accordionItems) => {
     });
 };
 
-closeMenuWork = (workhero, workherotext, accordionItems) => {
+const closeMenuWork = (workhero, workherotext, accordionItems) => {
   gsap
     .timeline()
     .to(
