@@ -16,4 +16,4 @@ Inspiration for the Index page was gotten on this [dribble design](https://dribb
 * [Parcel JS](https://parceljs.org/) - Out of the box tool For Bundling, Transpiling, ES6 usage and so much more
 
 ## HOSTED ON NETLIFY
-[Netlify Link](link here)
+[Netlify Link](https://modern-marketting.netlify.app/)
