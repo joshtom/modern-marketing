@@ -1,3 +1,3 @@
-module.exports = {
-    "minifySvg": false
-  }
+// module.exports = {
+//     "minifySvg": false
+//   }
